@@ -60,8 +60,16 @@ class ViewController: UIViewController
         {
             self.percentage = fraction * 100
             self.percentageLabel.text = percentage.description + "%"
-            self.actualFractionLabel.text = "( " + self.fractionNumerator.description + " / " + self.fractionDenominator.description + " )"
+            self.actualFractionLabel.text = "( " + self.truncateFloatForString(self.fractionNumerator) + " / " + self.truncateFloatForString(self.fractionDenominator) + " )"
         }
+    }
+    
+    func truncateFloatForString (inputFloat: Float) -> String
+    {
+        let initialString = inputFloat.description
+        let splitString = initialString.componentsSeparatedByString(".")
+        let finalString = splitString.first
+        return finalString!
     }
 }
 
