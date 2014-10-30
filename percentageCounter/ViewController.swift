@@ -8,18 +8,60 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
+    @IBOutlet weak var percentageLabel: UILabel!
+    @IBOutlet weak var actualFractionLabel: UILabel!
+    
+    var percentage : Float = 0
+    var fractionNumerator : Float = 0
+    var fractionDenominator : Float = 0
+    var wasReset : Bool = true
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.updateLabels()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func voteYes(sender: AnyObject)
+    {
+        fractionNumerator += 1
+        fractionDenominator += 1
+        self.wasReset = false
+        self.updateLabels()
     }
-
-
+    
+    @IBAction func voteNo(sender: AnyObject)
+    {
+        fractionDenominator += 1
+        self.wasReset = false
+        self.updateLabels()
+    }
+    
+    @IBAction func resetValues(sender: AnyObject)
+    {
+        self.percentage = 0
+        self.fractionNumerator = 0
+        self.fractionDenominator = 0
+        self.wasReset = true
+        self.updateLabels()
+    }
+    
+    func updateLabels ()
+    {
+        let fraction : Float = self.fractionNumerator / self.fractionDenominator
+        if wasReset
+        {
+            self.percentageLabel.text = "0%"
+            self.actualFractionLabel.text = "0/0"
+        }
+        else
+        {
+            self.percentage = fraction * 100
+            self.percentageLabel.text = percentage.description + "%"
+            self.actualFractionLabel.text = "( " + self.fractionNumerator.description + " / " + self.fractionDenominator.description + " )"
+        }
+    }
 }
 

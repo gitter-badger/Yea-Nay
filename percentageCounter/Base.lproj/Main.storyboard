@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="percentageCounter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,8 +17,65 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WF-Mq-urC">
+                                <rect key="frame" x="206" y="538" width="30" height="30"/>
+                                <state key="normal" title="YES">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="voteYes:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5Ri-bt-hNB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBX-wB-IYv">
+                                <rect key="frame" x="364" y="538" width="30" height="30"/>
+                                <state key="normal" title="NO">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="voteNo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dsq-Am-ytH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLZ-49-4Ny">
+                                <rect key="frame" x="536" y="20" width="48" height="30"/>
+                                <state key="normal" title="RESET">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetValues:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Rzg-f2-u6i"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERCENTAGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83F-Hw-pUd">
+                                <rect key="frame" x="245" y="289" width="111.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Actual fraction)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbw-h4-Duv">
+                                <rect key="frame" x="240" y="324" width="120" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QLZ-49-4Ny" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="1tG-vN-TTq"/>
+                            <constraint firstItem="QLZ-49-4Ny" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="5Rj-Ul-IC7"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="rBX-wB-IYv" secondAttribute="bottom" constant="32" id="Mhw-JD-baU"/>
+                            <constraint firstAttribute="centerX" secondItem="83F-Hw-pUd" secondAttribute="centerX" id="Nq5-TD-i8A"/>
+                            <constraint firstAttribute="centerY" secondItem="83F-Hw-pUd" secondAttribute="centerY" id="Z7G-W9-OnH"/>
+                            <constraint firstItem="83F-Hw-pUd" firstAttribute="centerX" secondItem="wbw-h4-Duv" secondAttribute="centerX" constant="0.75" id="dTK-Ry-UfP"/>
+                            <constraint firstItem="rBX-wB-IYv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="centerXWithinMargins" constant="64" id="fwT-zK-itQ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2WF-Mq-urC" secondAttribute="bottom" constant="32" id="fxU-wl-998"/>
+                            <constraint firstAttribute="centerXWithinMargins" secondItem="2WF-Mq-urC" secondAttribute="trailing" constant="64" id="j37-e9-yvy"/>
+                            <constraint firstItem="wbw-h4-Duv" firstAttribute="top" secondItem="83F-Hw-pUd" secondAttribute="bottom" constant="14.5" id="vwU-8e-b3U"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="actualFractionLabel" destination="wbw-h4-Duv" id="2Zv-tp-Aes"/>
+                        <outlet property="percentageLabel" destination="83F-Hw-pUd" id="ZuV-yh-6t6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
