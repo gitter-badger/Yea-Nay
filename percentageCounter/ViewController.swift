@@ -16,11 +16,26 @@ class ViewController: UIViewController
     var percentage : Float = 0
     var fractionNumerator : Float = 0
     var fractionDenominator : Float = 0
-    var wasReset : Bool = true
+    let operationQueue = NSOperationQueue()
+    
+    class var sharedInstance: ViewController
+    {
+        struct Static
+        {
+            static let instance = ViewController()
+        }
+        return Static.instance
+    }
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.operationQueue.maxConcurrentOperationCount = 1
+        self.updateLabels()
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
         self.updateLabels()
     }
     
@@ -28,14 +43,12 @@ class ViewController: UIViewController
     {
         fractionNumerator += 1
         fractionDenominator += 1
-        self.wasReset = false
         self.updateLabels()
     }
     
     @IBAction func voteNo(sender: AnyObject)
     {
         fractionDenominator += 1
-        self.wasReset = false
         self.updateLabels()
     }
     
@@ -44,20 +57,20 @@ class ViewController: UIViewController
         self.percentage = 0
         self.fractionNumerator = 0
         self.fractionDenominator = 0
-        self.wasReset = true
+        
         self.updateLabels()
     }
     
     func updateLabels ()
     {
-        let fraction : Float = self.fractionNumerator / self.fractionDenominator
-        if wasReset
+        if (self.percentage == 0 && self.fractionDenominator == 0 && self.fractionNumerator == 0)
         {
             self.percentageLabel.text = "0%"
-            self.actualFractionLabel.text = "0/0"
+            self.actualFractionLabel.text = "( 0 / 0 )"
         }
         else
         {
+            let fraction : Float = self.fractionNumerator / self.fractionDenominator
             self.percentage = fraction * 100
             self.percentageLabel.text = percentage.description + "%"
             self.actualFractionLabel.text = "( " + self.truncateFloatForString(self.fractionNumerator) + " / " + self.truncateFloatForString(self.fractionDenominator) + " )"
@@ -70,6 +83,45 @@ class ViewController: UIViewController
         let splitString = initialString.componentsSeparatedByString(".")
         let finalString = splitString.first
         return finalString!
+    }
+    
+    func saveState ()
+    {
+        NSUserDefaults.standardUserDefaults().setObject(self.percentage, forKey: "percentage")
+        NSUserDefaults.standardUserDefaults().setObject(self.fractionNumerator, forKey: "numerator")
+        NSUserDefaults.standardUserDefaults().setObject(self.fractionDenominator, forKey: "denominator")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func loadState ()
+    {
+        if let value = NSUserDefaults.standardUserDefaults().valueForKey("percentage") as? Float
+        {
+            println("Percentage: \(value)%")
+            self.percentage = value
+        }
+        else
+        {
+            self.percentage = 0
+        }
+        if let value = NSUserDefaults.standardUserDefaults().valueForKey("numerator") as? Float
+        {
+            println("Numerator: \(value).")
+            self.fractionNumerator = value
+        }
+        else
+        {
+            self.fractionNumerator = 0
+        }
+        if let value = NSUserDefaults.standardUserDefaults().valueForKey("denominator") as? Float
+        {
+            println("Denominator: \(value).")
+            self.fractionDenominator = value
+        }
+        else
+        {
+            self.fractionDenominator = 0
+        }
     }
 }
 
