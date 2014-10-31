@@ -12,6 +12,7 @@ class ViewController: UIViewController
 {
     @IBOutlet weak var percentageLabel: UILabel!
     @IBOutlet weak var actualFractionLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var percentage : Float = 0
     var fractionNumerator : Float = 0
@@ -31,6 +32,7 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         self.operationQueue.maxConcurrentOperationCount = 1
+        self.loadState()
         self.updateLabels()
     }
     
@@ -61,6 +63,11 @@ class ViewController: UIViewController
         self.updateLabels()
     }
     
+    @IBAction func saveStateButtonPressed(sender: AnyObject)
+    {
+        self.saveState()
+    }
+    
     func updateLabels ()
     {
         if (self.percentage == 0 && self.fractionDenominator == 0 && self.fractionNumerator == 0)
@@ -87,10 +94,12 @@ class ViewController: UIViewController
     
     func saveState ()
     {
+        self.activityIndicator.startAnimating()
         NSUserDefaults.standardUserDefaults().setObject(self.percentage, forKey: "percentage")
         NSUserDefaults.standardUserDefaults().setObject(self.fractionNumerator, forKey: "numerator")
         NSUserDefaults.standardUserDefaults().setObject(self.fractionDenominator, forKey: "denominator")
         NSUserDefaults.standardUserDefaults().synchronize()
+        self.activityIndicator.stopAnimating()
     }
     
     func loadState ()
