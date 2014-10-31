@@ -65,7 +65,10 @@ class ViewController: UIViewController
     
     @IBAction func saveStateButtonPressed(sender: AnyObject)
     {
+        self.activityIndicator.startAnimating()
+        println("Save state button pressed...")
         self.saveState()
+        self.activityIndicator.stopAnimating()
     }
     
     func updateLabels ()
@@ -94,12 +97,11 @@ class ViewController: UIViewController
     
     func saveState ()
     {
-        self.activityIndicator.startAnimating()
         NSUserDefaults.standardUserDefaults().setObject(self.percentage, forKey: "percentage")
         NSUserDefaults.standardUserDefaults().setObject(self.fractionNumerator, forKey: "numerator")
         NSUserDefaults.standardUserDefaults().setObject(self.fractionDenominator, forKey: "denominator")
         NSUserDefaults.standardUserDefaults().synchronize()
-        self.activityIndicator.stopAnimating()
+        println("State saved.")
     }
     
     func loadState ()
